@@ -1,3 +1,1 @@
-export default function Home() {
-  return <div>hola</div>
-}
+export { default } from '@Views/App'

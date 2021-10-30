@@ -1,6 +1,6 @@
 module.exports = {
   mode: 'jit',
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}'],
+  purge: ['./src/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
@@ -75,34 +75,6 @@ module.exports = {
       maxHeight: (theme) => ({
         ...theme('spacing'),
       }),
-      colors: {
-        gradient: {
-          start: '#7aaaff',
-          end: '#ffb8b8',
-        },
-        dark: {
-          DEFAULT: '#070E27',
-          primary: '#181830',
-          secondary: '#212142',
-          light: '#2f3253',
-        },
-        base: {
-          main: {
-            DEFAULT: '#181B32',
-            80: 'rgba(24,27,50,0.8)',
-          },
-          light: {
-            DEFAULT: '#1D2559',
-            'dark-mode': '#2C2F48',
-          },
-          lighter: {
-            DEFAULT: '#878FB8',
-            'dark-mode': '#393C57',
-            16: 'rgba(135, 143, 184, 0.16)',
-            24: 'rgba(135,143,184,0.24)',
-          },
-        },
-      },
       borderRadius: {
         circle: '50%',
       },
@@ -134,30 +106,6 @@ module.exports = {
         14: '14',
         16: '16',
         18: '18',
-      },
-      animation: {
-        float: 'float 4s ease-in-out infinite',
-        'appear-rotating': 'rotate 0.1s ease-in-out',
-        'fade-in': 'fadeIn 1.3s ease-in-out forwards',
-      },
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(22px)' },
-        },
-        fadeIn: {
-          '0%': { opacity: 0 },
-          '50%': { opacity: 0.5 },
-          '100%': { opacity: 1 },
-        },
-        rotate: {
-          '0%': {
-            transform: 'rotate(90deg)',
-          },
-          '100%': {
-            transform: 'rotate(0deg)',
-          },
-        },
       },
       scale: {
         0: '0',
