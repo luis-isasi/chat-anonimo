@@ -82,7 +82,10 @@ module.exports = {
         panel: {
           default: '#2a2f32',
           secondary: '#33383b',
-          dark: '#30383d',
+        },
+        dark: {
+          default: '#131c21',
+          ligth: '#30383d',
         },
       },
       borderWidth: {
