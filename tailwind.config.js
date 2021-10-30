@@ -78,6 +78,13 @@ module.exports = {
       borderRadius: {
         circle: '50%',
       },
+      colors: {
+        panel: {
+          default: '#2a2f32',
+          secondary: '#33383b',
+          dark: '#30383d',
+        },
+      },
       borderWidth: {
         1: '1px',
         3: '3px',
