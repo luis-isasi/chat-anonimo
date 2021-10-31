@@ -32,8 +32,28 @@ export const getChatsData = (): ChatData[] => {
   return JSON.parse(localStorage.getItem(CHATS_DATA))
 }
 
-export const getChatsById = (id: number): ChatsReference => {
-  return getChatsList().find((chat) => chat.idUser === id)
+//get all chats of current user
+export const getChatsCurrentUser = (idCurrentUser: number) => {
+  const allChatsData = getChatsData()
+  const chatsCurrentUser = []
+
+  allChatsData.forEach((chatData) => {
+    if (chatData.receiver.id === idCurrentUser) {
+      chatsCurrentUser.push({
+        id: chatData.id,
+        contact: { id: chatData.sender.id, name: chatData.sender.name },
+      })
+    }
+
+    if (chatData.sender.id === idCurrentUser) {
+      chatsCurrentUser.push({
+        id: chatData.id,
+        contact: { id: chatData.receiver.id, name: chatData.receiver.name },
+      })
+    }
+  })
+
+  return chatsCurrentUser
 }
 
 //create new chat in current user
@@ -79,30 +99,6 @@ export const createChatReceiverLS = ({
     USERS_LIST,
     JSON.stringify([...allUsersFilter, updatedUserReceiver])
   )
-}
-
-//get all chats of current user
-export const getChatsCurrentUser = (idCurrentUser: number) => {
-  const allChatsData = getChatsData()
-  const chatsCurrentUser = []
-
-  allChatsData.forEach((chatData) => {
-    if (chatData.receiver.id === idCurrentUser) {
-      chatsCurrentUser.push({
-        id: chatData.id,
-        contact: { id: chatData.sender.id, name: chatData.sender.name },
-      })
-    }
-
-    if (chatData.sender.id === idCurrentUser) {
-      chatsCurrentUser.push({
-        id: chatData.id,
-        contact: { id: chatData.receiver.id, name: chatData.receiver.name },
-      })
-    }
-  })
-
-  return chatsCurrentUser
 }
 
 //create new chatBase

@@ -22,7 +22,7 @@ const MessageItem: React.FC<Props> = ({ message, idCurrentUser }) => {
         }`}
       >
         <p>{message.message}</p>
-        <p className="text-[0.6rem] font-normal text-gray-400">
+        <p className="text-[0.55rem] font-normal my-0 text-gray-400">
           {message.date}
         </p>
       </div>

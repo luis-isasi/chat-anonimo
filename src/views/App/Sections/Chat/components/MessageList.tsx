@@ -9,8 +9,6 @@ interface Props {
 }
 
 const MessageList: React.FC<Props> = ({ messages, idCurrentUser }) => {
-  console.log({ messages })
-
   const renderMessages = () => {
     return messages.map((message, index) => {
       return (

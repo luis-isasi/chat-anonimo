@@ -22,7 +22,7 @@ const User = () => {
 
   return (
     <div className="flex items-center">
-      <AccountCircleIcon className="mr-1" />
+      <AccountCircleIcon className="mr-2" />
       {isEditing ? (
         <input
           type="text"

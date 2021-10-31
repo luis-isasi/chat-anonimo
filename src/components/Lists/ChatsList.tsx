@@ -8,7 +8,6 @@ const ChatsList = () => {
 
   const renderChats = () => {
     const chats = getChatsCurrentUser(user.id)
-    console.log({ chats })
 
     if (user.chats.length > chats.length) {
       return user.chats.map((chat) => {
@@ -24,7 +23,7 @@ const ChatsList = () => {
   }
 
   return (
-    <BaseChatList nameList="Chats 😀">
+    <BaseChatList nameList="Mis Chats 😀">
       <div>{renderChats()}</div>
     </BaseChatList>
   )

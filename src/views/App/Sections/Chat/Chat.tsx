@@ -1,14 +1,16 @@
 import styled from 'styled-components'
+import RotateLeftIcon from '@mui/icons-material/RotateLeft'
 
 import { useContextApp } from '@Context/contextApp'
 import { useContextUser } from '@Context/contextUser'
 import MessageList from './components/MessageList'
 import SendMsg from './components/SendMsg'
+import { getChatDataById } from '@Utils'
 
 import { Header } from '../../styled'
 
 const Chat = () => {
-  const { selectedChat } = useContextApp()
+  const { selectedChat, setSelectedChat } = useContextApp()
   const {
     user: { id: idCurrentUser },
   } = useContextUser()
@@ -27,10 +29,23 @@ const Chat = () => {
       chatData: { messages, id: idChat },
     } = selectedChat
 
+    const handleUpdateChat = () => {
+      const chatData = getChatDataById(selectedChat.chatData.id)
+      setSelectedChat({ ...selectedChat, chatData })
+    }
+
     return (
       <Container>
-        <Header className="bg-panel-default flex justify-center items-center">
-          {name}
+        <Header className="bg-panel-default flex justify-between items-center">
+          <h3>{name}</h3>
+          <button
+            type="button"
+            onClick={handleUpdateChat}
+            className="text-xs font-light opacity-70 hover:opacity-100"
+          >
+            actualizar chat
+            <RotateLeftIcon className="ml-2" />
+          </button>
         </Header>
         <div>
           <ContainerChat>
