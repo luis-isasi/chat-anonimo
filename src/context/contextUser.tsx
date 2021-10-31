@@ -105,7 +105,7 @@ export const ContextUserProvider = ({ children }) => {
     //update state current user
     setUser({ ...user, chats: [...user.chats, newChat] })
 
-    //creatte chat
+    //create chat
     createChatLS({ currentUser: user, newChat })
 
     //create chat receiver

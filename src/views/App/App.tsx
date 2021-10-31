@@ -11,10 +11,12 @@ const App = () => {
   }
 
   return (
-    <Container>
-      <BannerLeft />
-      <Chat />
-    </Container>
+    <div className="bg-gray-800">
+      <Container>
+        <BannerLeft />
+        <Chat />
+      </Container>
+    </div>
   )
 }
 

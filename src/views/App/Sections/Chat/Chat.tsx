@@ -1,11 +1,17 @@
 import styled from 'styled-components'
-import { Header } from '../../styled'
+
 import { useContextApp } from '@Context/contextApp'
-import SendMsg from './components/SendMsg'
+import { useContextUser } from '@Context/contextUser'
 import MessageList from './components/MessageList'
+import SendMsg from './components/SendMsg'
+
+import { Header } from '../../styled'
 
 const Chat = () => {
   const { selectedChat } = useContextApp()
+  const {
+    user: { id: idCurrentUser },
+  } = useContextUser()
 
   if (!selectedChat) {
     return (
@@ -18,7 +24,7 @@ const Chat = () => {
       chat: {
         contact: { name },
       },
-      chatData: { messages, id },
+      chatData: { messages, id: idChat },
     } = selectedChat
 
     return (
@@ -28,8 +34,8 @@ const Chat = () => {
         </Header>
         <div>
           <ContainerChat>
-            <MessageList messages={messages} />
-            <SendMsg idChat={id} />
+            <MessageList messages={messages} idCurrentUser={idCurrentUser} />
+            <SendMsg idChat={idChat} />
           </ContainerChat>
         </div>
       </Container>

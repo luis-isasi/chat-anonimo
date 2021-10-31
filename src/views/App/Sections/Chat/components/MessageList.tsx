@@ -1,17 +1,40 @@
 import styled from 'styled-components'
 
-import Message from './Message'
-import type { Message as TypeMsg } from '@Types'
+import MessageItem from './MessageItem'
+import { Message as TypeMsg } from '@Types'
 
 interface Props {
   messages: TypeMsg[]
+  idCurrentUser: number
 }
 
-const MessageList: React.FC<Props> = ({ messages }) => {
+const MessageList: React.FC<Props> = ({ messages, idCurrentUser }) => {
   console.log({ messages })
-  return <ContainerMsg>MENSAJES</ContainerMsg>
+
+  const renderMessages = () => {
+    return messages.map((message, index) => {
+      return (
+        <MessageItem
+          key={index}
+          message={message}
+          idCurrentUser={idCurrentUser}
+        />
+      )
+    })
+  }
+  return (
+    <ContainerMsg className="scrool-none bg-scroolbar-white scroolbar">
+      {renderMessages()}
+    </ContainerMsg>
+  )
 }
 
-const ContainerMsg = styled.div``
+const ContainerMsg = styled.div`
+  box-sizing: border-box;
+  padding: 16px;
+  height: 100%;
+  max-height: calc(100vh - 124px);
+  overflow-y: auto;
+`
 
 export default MessageList

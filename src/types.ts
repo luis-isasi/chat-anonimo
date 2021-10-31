@@ -21,6 +21,11 @@ export interface ChatData {
   messages: Message[]
 }
 
+export interface ChatsReference {
+  idUser: number
+  chats: Chat[]
+}
+
 export interface SelectedChat {
   chat: Chat
   chatData: ChatData

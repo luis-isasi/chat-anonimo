@@ -1,5 +1,12 @@
-import { CHATS_LIST, USERS_LIST, USER_SESSION } from '@Constants'
-import { User, Chat, UserBasic, ChatData, Message } from '@Types'
+import { CHATS_DATA, USERS_LIST, USER_SESSION, CHATS_LIST } from '@Constants'
+import {
+  User,
+  Chat,
+  UserBasic,
+  ChatData,
+  Message,
+  ChatsReference,
+} from '@Types'
 
 export const getUserById = (id: number): User => {
   return getAllUsers().find((user) => user.id === id)
@@ -14,11 +21,19 @@ export const getKnownUsers = (idCurrentUser: number) => {
 }
 
 export const getChatDataById = (id: number) => {
-  return getChatsList().find((chat) => chat.id === id)
+  return getChatsData().find((chat) => chat.id === id)
 }
 
-export const getChatsList = (): ChatData[] => {
+export const getChatsList = (): ChatsReference[] => {
   return JSON.parse(localStorage.getItem(CHATS_LIST))
+}
+
+export const getChatsData = (): ChatData[] => {
+  return JSON.parse(localStorage.getItem(CHATS_DATA))
+}
+
+export const getChatsById = (id: number): ChatsReference => {
+  return getChatsList().find((chat) => chat.idUser === id)
 }
 
 //create new chat in current user
@@ -46,6 +61,8 @@ export const createChatReceiverLS = ({
   const allUsers = getAllUsers()
   const userReceiver = getUserById(idReceiver)
 
+  console.log({ userReceiver })
+
   const newChat: Chat = {
     id: userReceiver.chats.length + 1,
     contact: currentUser,
@@ -64,6 +81,30 @@ export const createChatReceiverLS = ({
   )
 }
 
+//get all chats of current user
+export const getChatsCurrentUser = (idCurrentUser: number) => {
+  const allChatsData = getChatsData()
+  const chatsCurrentUser = []
+
+  allChatsData.forEach((chatData) => {
+    if (chatData.receiver.id === idCurrentUser) {
+      chatsCurrentUser.push({
+        id: chatData.id,
+        contact: { id: chatData.sender.id, name: chatData.sender.name },
+      })
+    }
+
+    if (chatData.sender.id === idCurrentUser) {
+      chatsCurrentUser.push({
+        id: chatData.id,
+        contact: { id: chatData.receiver.id, name: chatData.receiver.name },
+      })
+    }
+  })
+
+  return chatsCurrentUser
+}
+
 //create new chatBase
 export const createChatDataLS = ({
   sender,
@@ -72,17 +113,17 @@ export const createChatDataLS = ({
   sender: UserBasic
   receiver: UserBasic
 }): ChatData => {
-  const chatsList = getChatsList()
+  const chatsData = getChatsData()
 
   const newChatData: ChatData = {
-    id: chatsList.length + 1,
+    id: chatsData.length + 1,
     sender,
     receiver,
     messages: [],
   }
 
   //add to localstorage
-  localStorage.setItem(CHATS_LIST, JSON.stringify([...chatsList, newChatData]))
+  localStorage.setItem(CHATS_DATA, JSON.stringify([...chatsData, newChatData]))
 
   return newChatData
 }
@@ -95,16 +136,16 @@ export const addMessageLS = ({
   idChat: number
   message: Message
 }) => {
-  const chatsList = getChatsList()
-  const chat = chatsList.find((chat) => chat.id === idChat)
+  const chatsData = getChatsData()
+  const chat = chatsData.find((chat) => chat.id === idChat)
 
   const newMessage: Message = {
-    idUser: idChat,
+    idUser: message.idUser,
     message: message.message,
     date: new Date().toLocaleString(),
   }
 
   chat.messages.push(newMessage)
 
-  localStorage.setItem(CHATS_LIST, JSON.stringify(chatsList))
+  localStorage.setItem(CHATS_DATA, JSON.stringify(chatsData))
 }
