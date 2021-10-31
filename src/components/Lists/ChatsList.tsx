@@ -1,4 +1,5 @@
 import { useContextUser } from '@Context/contextUser'
+
 import ChatItem from '../Chats/ChatItem'
 import BaseChatList from './BaseChatList'
 import { getChatDataById, getChatsCurrentUserLS } from '@Utils'
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const ChatsList: React.FC<Props> = ({ textForSearch = '' }) => {
-  const { user } = useContextUser()
+  const { user, setUser } = useContextUser()
 
   const renderChats = () => {
     const chats = getChatsCurrentUserLS(user.id)
@@ -28,8 +29,13 @@ const ChatsList: React.FC<Props> = ({ textForSearch = '' }) => {
     })
   }
 
+  const updateChats = () => {
+    const chats = getChatsCurrentUserLS(user.id)
+    setUser({ ...user, chats })
+  }
+
   return (
-    <BaseChatList nameList="Mis Chats 😀">
+    <BaseChatList nameList="Mis Chats 😀" handleUpdate={updateChats}>
       <div>{renderChats()}</div>
     </BaseChatList>
   )

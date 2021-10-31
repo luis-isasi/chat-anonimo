@@ -9,9 +9,14 @@ const styleTransition = {
 
 interface Props {
   nameList: string
+  handleUpdate?: () => void
 }
 
-const BaseChatList: React.FC<Props> = ({ nameList, children }) => {
+const BaseChatList: React.FC<Props> = ({
+  nameList,
+  children,
+  handleUpdate,
+}) => {
   const [isOpenList, setIsOpenList] = useState<boolean>(true)
   const [height, setHeight] = useState<number>(32)
 
@@ -41,14 +46,24 @@ const BaseChatList: React.FC<Props> = ({ nameList, children }) => {
       <div ref={refDiv}>
         <div className="flex justify-between items-center">
           <h4>{nameList}</h4>
-          <button onClick={handleClick}>
-            <KeyboardArrowDownIcon
-              className={`${!isOpenList && 'rotate-180'}`}
-              style={{
-                ...styleTransition,
-              }}
-            />
-          </button>
+          <div>
+            {handleUpdate && (
+              <button
+                onClick={handleUpdate}
+                className="text-[12px] text-gray-600 hover:text-gray-200"
+              >
+                Actualizar
+              </button>
+            )}
+            <button onClick={handleClick}>
+              <KeyboardArrowDownIcon
+                className={`${!isOpenList && 'rotate-180'}`}
+                style={{
+                  ...styleTransition,
+                }}
+              />
+            </button>
+          </div>
         </div>
         {children}
       </div>

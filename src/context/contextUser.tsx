@@ -9,9 +9,9 @@ import {
   addMessageLS,
 } from '@Utils'
 import { useContextApp } from '@Context/contextApp'
-import { ButtonPropsVariantOverrides } from '@mui/material'
 interface ContextUser {
   user: User
+  setUser: (user: User) => void
   setUserName: ({ name, id }: { name: string; id: number }) => void
   isLoading: boolean
   addNewChat: ({}: { sender: UserBasic; receiver: UserBasic }) => {
@@ -139,7 +139,7 @@ export const ContextUserProvider = ({ children }) => {
 
   return (
     <ContextUser.Provider
-      value={{ user, setUserName, isLoading, addNewChat, sendMessage }}
+      value={{ user, setUser, setUserName, isLoading, addNewChat, sendMessage }}
     >
       {children}
     </ContextUser.Provider>

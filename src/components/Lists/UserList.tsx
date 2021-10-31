@@ -17,9 +17,9 @@ const UserList: React.FC<Props> = ({ textForFilter = '' }) => {
       user.name.toLowerCase().includes(textForFilter)
     )
 
-    return filteredKnownUsers.map(({ id, name }) => {
-      return <UserItem key={id} name={name} id={id} />
-    })
+    return filteredKnownUsers.map(({ id, name }) => (
+      <UserItem key={id} name={name} id={id} />
+    ))
   }
 
   return (
