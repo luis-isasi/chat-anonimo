@@ -1,5 +1,5 @@
 import { CHATS_LIST, USERS_LIST, USER_SESSION } from '@Constants'
-import { User, Chat, UserBasic, ChatData } from '@Types'
+import { User, Chat, UserBasic, ChatData, Message } from '@Types'
 
 export const getUserById = (id: number): User => {
   return getAllUsers().find((user) => user.id === id)
@@ -13,6 +13,14 @@ export const getKnownUsers = (idCurrentUser: number) => {
   return getAllUsers().filter((user) => user.id !== idCurrentUser)
 }
 
+export const getChatDataById = (id: number) => {
+  return getChatsList().find((chat) => chat.id === id)
+}
+
+export const getChatsList = (): ChatData[] => {
+  return JSON.parse(localStorage.getItem(CHATS_LIST))
+}
+
 //create new chat in current user
 export const createChatLS = ({
   newChat,
@@ -21,7 +29,7 @@ export const createChatLS = ({
   newChat: Chat
   currentUser: User
 }) => {
-  localStorage.setItem(
+  sessionStorage.setItem(
     USER_SESSION,
     JSON.stringify({ ...currentUser, chats: [...currentUser.chats, newChat] })
   )
@@ -64,7 +72,7 @@ export const createChatDataLS = ({
   sender: UserBasic
   receiver: UserBasic
 }): ChatData => {
-  const chatsList = JSON.parse(localStorage.getItem(CHATS_LIST) || '[]')
+  const chatsList = getChatsList()
 
   const newChatData: ChatData = {
     id: chatsList.length + 1,
@@ -80,4 +88,23 @@ export const createChatDataLS = ({
 }
 
 //add new message to chatbase
-const addMessageLS = ({}: { idChat }) => {}
+export const addMessageLS = ({
+  idChat,
+  message,
+}: {
+  idChat: number
+  message: Message
+}) => {
+  const chatsList = getChatsList()
+  const chat = chatsList.find((chat) => chat.id === idChat)
+
+  const newMessage: Message = {
+    idUser: idChat,
+    message: message.message,
+    date: new Date().toLocaleString(),
+  }
+
+  chat.messages.push(newMessage)
+
+  localStorage.setItem(CHATS_LIST, JSON.stringify(chatsList))
+}

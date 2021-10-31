@@ -1,19 +1,23 @@
 import { useContextUser } from '@Context/contextUser'
 import ChatItem from '../Chats/ChatItem'
 import BaseChatList from './BaseChatList'
+import { getChatDataById } from '@Utils'
 
 const ChatsList = () => {
   const { user } = useContextUser()
 
-  const renderUsersItems = () => {
+  const renderChats = () => {
     if (user.chats.length) {
-      return user.chats.map((chat) => <ChatItem key={chat.id} chat={chat} />)
+      return user.chats.map((chat) => {
+        const chatData = getChatDataById(chat.id)
+        return <ChatItem key={chat.id} chat={chat} chatData={chatData} />
+      })
     }
   }
 
   return (
     <BaseChatList nameList="Chats 😀">
-      <div>{renderUsersItems()}</div>
+      <div>{renderChats()}</div>
     </BaseChatList>
   )
 }

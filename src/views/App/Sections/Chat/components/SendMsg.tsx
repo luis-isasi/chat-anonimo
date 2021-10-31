@@ -1,27 +1,30 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import styled from 'styled-components'
 import SendIcon from '@mui/icons-material/Send'
 import { useContextUser } from '@Context/contextUser'
 import { useContextApp } from '@Context/contextApp'
 
-const InputMsg = () => {
+const SendMsg: React.FC<{ idChat: number }> = ({ idChat }) => {
   const [msg, setMsg] = useState<string>('')
   const {
     user: { id },
+    sendMessage,
   } = useContextUser()
-  const {} = useContextApp()
 
-  const onSubmit = () => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     const newMsg = {
-      id,
+      idUser: id,
       message: msg,
       date: new Date().toISOString().slice(0, 10),
     }
+    sendMessage({ idChat, message: newMsg })
+    setMsg('')
   }
 
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <input
         type="text"
         value={msg}
@@ -45,4 +48,4 @@ const Form = styled.form`
   align-items: center;
 `
 
-export default InputMsg
+export default SendMsg

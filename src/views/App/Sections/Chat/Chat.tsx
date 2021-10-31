@@ -1,37 +1,40 @@
 import styled from 'styled-components'
 import { Header } from '../../styled'
 import { useContextApp } from '@Context/contextApp'
-import InputMsg from './components/InputMsg'
+import SendMsg from './components/SendMsg'
+import MessageList from './components/MessageList'
 
 const Chat = () => {
   const { selectedChat } = useContextApp()
 
-  if (!selectedChat)
+  if (!selectedChat) {
     return (
       <div className="h-full flex justify-center items-center">
         <p>No hay un chat seleccionado 😕</p>
       </div>
     )
+  } else {
+    const {
+      chat: {
+        contact: { name },
+      },
+      chatData: { messages, id },
+    } = selectedChat
 
-  const {
-    chat: {
-      contact: { name },
-    },
-  } = selectedChat
-
-  return (
-    <Container>
-      <Header className="bg-panel-default flex justify-center items-center">
-        {name}
-      </Header>
-      <div className="flex justify-center items-center">
-        <ContainerChat>
-          <div className="h-full">HOLA</div>
-          <InputMsg />
-        </ContainerChat>
-      </div>
-    </Container>
-  )
+    return (
+      <Container>
+        <Header className="bg-panel-default flex justify-center items-center">
+          {name}
+        </Header>
+        <div>
+          <ContainerChat>
+            <MessageList messages={messages} />
+            <SendMsg idChat={id} />
+          </ContainerChat>
+        </div>
+      </Container>
+    )
+  }
 }
 
 const Container = styled.div`

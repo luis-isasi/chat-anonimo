@@ -1,19 +1,24 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 
 import { USER_SESSION, USERS_LIST } from '@Constants'
-import { User, Chat, UserBasic, ChatData } from '@Types'
-import { createChatLS, createChatDataLS, createChatReceiverLS } from '@Utils'
+import { User, Chat, UserBasic, ChatData, Message } from '@Types'
+import {
+  createChatLS,
+  createChatDataLS,
+  createChatReceiverLS,
+  addMessageLS,
+} from '@Utils'
+import { useContextApp } from '@Context/contextApp'
+import { ButtonPropsVariantOverrides } from '@mui/material'
 interface ContextUser {
   user: User
   setUserName: ({ name, id }: { name: string; id: number }) => void
   isLoading: boolean
-  addNewChat: ({
-    sender,
-    receiver,
-  }: {
-    sender: UserBasic
-    receiver: UserBasic
-  }) => { chat: Chat; chatData: ChatData }
+  addNewChat: ({}: { sender: UserBasic; receiver: UserBasic }) => {
+    chat: Chat
+    chatData: ChatData
+  }
+  sendMessage: ({}: { idChat: number; message: Message }) => void
 }
 
 //we create context theme
@@ -24,7 +29,7 @@ export const ContextUserProvider = ({ children }) => {
   const [user, setUser] = useState<undefined | User>(undefined)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  console.log({ user })
+  const { selectedChat, setSelectedChat } = useContextApp()
 
   useEffect(() => {
     if (user) {
@@ -112,8 +117,30 @@ export const ContextUserProvider = ({ children }) => {
     return { chat: newChat, chatData }
   }
 
+  const sendMessage = ({
+    idChat,
+    message,
+  }: {
+    idChat: number
+    message: Message
+  }) => {
+    //update selectedChat
+    setSelectedChat({
+      ...selectedChat,
+      chatData: {
+        ...selectedChat.chatData,
+        messages: [...selectedChat.chatData.messages, message],
+      },
+    })
+
+    //update chatData in LS
+    addMessageLS({ idChat, message })
+  }
+
   return (
-    <ContextUser.Provider value={{ user, setUserName, isLoading, addNewChat }}>
+    <ContextUser.Provider
+      value={{ user, setUserName, isLoading, addNewChat, sendMessage }}
+    >
       {children}
     </ContextUser.Provider>
   )
