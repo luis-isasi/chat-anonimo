@@ -95,8 +95,6 @@ export const createChatReceiverLS = ({
   const allUsers = getAllUsers()
   const userReceiver = getUserById(idReceiver)
 
-  console.log({ userReceiver })
-
   const newChat: Chat = {
     id: userReceiver.chats.length + 1,
     contact: currentUser,
