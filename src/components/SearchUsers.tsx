@@ -1,7 +1,12 @@
 import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search'
 
-const SearchUsers = () => {
+interface Props {
+  text: string
+  setText: (text: string) => void
+}
+
+const SearchUsers: React.FC<Props> = ({ text, setText }) => {
   return (
     <ContainerSearchUsers>
       <div className="bg-panel-default w-full rounded-full px-3 text-sm font-light flex items-center ">
@@ -11,6 +16,8 @@ const SearchUsers = () => {
         />
         <input
           type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
           placeholder="Search users..."
           className="bg-transparent ml-1 flex-grow px-3 py-1 outline-none"
         />

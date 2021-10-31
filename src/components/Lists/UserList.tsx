@@ -3,14 +3,21 @@ import BaseChatList from './BaseChatList'
 import UserItem from '../Chats/UserItem'
 import { getKnownUsers } from '@Utils'
 
-const UserList = () => {
+interface Props {
+  textForFilter: string
+}
+
+const UserList: React.FC<Props> = ({ textForFilter = '' }) => {
   const {
     user: { id },
   } = useContextUser()
 
   const renderUsers = () => {
-    const knownUsers = getKnownUsers(id)
-    return knownUsers.map(({ id, name }) => {
+    const filteredKnownUsers = getKnownUsers(id).filter((user) =>
+      user.name.toLowerCase().includes(textForFilter)
+    )
+
+    return filteredKnownUsers.map(({ id, name }) => {
       return <UserItem key={id} name={name} id={id} />
     })
   }

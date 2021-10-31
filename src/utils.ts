@@ -32,6 +32,20 @@ export const getChatsData = (): ChatData[] => {
   return JSON.parse(localStorage.getItem(CHATS_DATA))
 }
 
+export const filterUsersList = (text: string) => {
+  return getAllUsers().filter((user) => user.name.toLowerCase().includes(text))
+}
+
+export const filterChatsList = ({
+  text,
+  chats = [],
+}: {
+  text: string
+  chats: Chat[]
+}) => {
+  return chats.filter((chat) => chat.contact.name.toLowerCase().includes(text))
+}
+
 //get all chats of current user
 export const getChatsCurrentUser = (idCurrentUser: number) => {
   const allChatsData = getChatsData()

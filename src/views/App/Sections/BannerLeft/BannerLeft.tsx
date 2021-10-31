@@ -1,10 +1,8 @@
 import styled from 'styled-components'
 
 import User from '@Components/User'
-import SearchUsers from '@Components/SearchUsers'
-import ChatsList from '@/src/components/Lists/ChatsList'
-import UserList from '@/src/components/Lists/UserList'
-import { Header } from '../styled'
+import SearchHOC from './SearchHOC'
+import { Header } from '../../styled'
 
 const BannerLeft = () => {
   return (
@@ -12,9 +10,7 @@ const BannerLeft = () => {
       <Header className="flex items-center">
         <User />
       </Header>
-      <SearchUsers />
-      <ChatsList />
-      <UserList />
+      <SearchHOC />
     </BannerLeftDiv>
   )
 }
