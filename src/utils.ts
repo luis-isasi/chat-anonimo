@@ -47,7 +47,7 @@ export const filterChatsList = ({
 }
 
 //get all chats of current user
-export const getChatsCurrentUser = (idCurrentUser: number) => {
+export const getChatsCurrentUserLS = (idCurrentUser: number) => {
   const allChatsData = getChatsData()
   const chatsCurrentUser = []
 

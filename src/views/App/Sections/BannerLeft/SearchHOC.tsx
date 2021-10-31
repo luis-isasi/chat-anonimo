@@ -16,7 +16,7 @@ const SearchHOC = () => {
   return (
     <>
       <SearchUsers text={textForSearch} setText={setTextForSearch} />
-      <ChatsList />
+      <ChatsList textForSearch={textForSearch} />
       <UserList textForFilter={textForSearch} />
     </>
   )
