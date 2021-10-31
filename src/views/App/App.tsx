@@ -11,12 +11,10 @@ const App = () => {
   }
 
   return (
-    <div>
-      <Container>
-        <BannerLeft />
-        <Chat />
-      </Container>
-    </div>
+    <Container>
+      <BannerLeft />
+      <Chat />
+    </Container>
   )
 }
 

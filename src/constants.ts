@@ -1,5 +1,6 @@
 export const USER_SESSION = 'user_session'
 export const USERS_LIST = 'users_list'
+export const CHATS_LIST = 'chats_list'
 
 //MEDIA QUERYS
 export const MEDIAQUERY_SM = 640

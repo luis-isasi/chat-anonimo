@@ -8,15 +8,10 @@ const styleTransition = {
 }
 
 interface Props {
-  // ComponentList: () => JSX.Element
   nameList: string
 }
 
-const BaseChatList: React.FC<Props> = ({
-  // ComponentList,
-  nameList,
-  children,
-}) => {
+const BaseChatList: React.FC<Props> = ({ nameList, children }) => {
   const [isOpenList, setIsOpenList] = useState<boolean>(true)
   const [height, setHeight] = useState<number>(32)
 
@@ -56,7 +51,6 @@ const BaseChatList: React.FC<Props> = ({
           </button>
         </div>
         {children}
-        {/* <ComponentList /> */}
       </div>
     </div>
   )

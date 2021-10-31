@@ -1,14 +1,13 @@
-import { useContextApp } from '@Context/contextApp'
-
-import ChatItem from './ChatItem'
+import { useContextUser } from '@Context/contextUser'
+import ChatItem from '../Chats/ChatItem'
 import BaseChatList from './BaseChatList'
 
 const ChatsList = () => {
-  const { usersList } = useContextApp()
+  const { user } = useContextUser()
 
   const renderUsersItems = () => {
-    if (usersList.length) {
-      return usersList.map((user) => <ChatItem key={user.id} user={user} />)
+    if (user.chats.length) {
+      return user.chats.map((chat) => <ChatItem key={chat.id} chat={chat} />)
     }
   }
 

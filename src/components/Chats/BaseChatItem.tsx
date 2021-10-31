@@ -1,17 +1,14 @@
 import styled from 'styled-components'
-
-import type { User } from '@Types'
 import PersonIcon from '@mui/icons-material/Person'
 
-const ChatItem: React.FC<{ user: User }> = ({ user }) => {
-  const { name } = user
+interface Props {
+  name: string
+  onClick: () => void
+}
 
-  const handleClick = () => {
-    console.log('asfa')
-  }
-
+const BaseChatItem: React.FC<Props> = ({ name, onClick }) => {
   return (
-    <StyledUserItem onClick={handleClick}>
+    <StyledChatItem onClick={onClick}>
       <div className="min-w-16 h-15 flex justify-center items-center">
         <PersonIcon
           style={{
@@ -23,11 +20,11 @@ const ChatItem: React.FC<{ user: User }> = ({ user }) => {
       <div className="border-b border-gray-700 w-full h-full flex items-center">
         {name}
       </div>
-    </StyledUserItem>
+    </StyledChatItem>
   )
 }
 
-const StyledUserItem = styled.li`
+const StyledChatItem = styled.li`
   height: 60px;
   display: flex;
   align-items: center;
@@ -38,4 +35,4 @@ const StyledUserItem = styled.li`
   }
 `
 
-export default ChatItem
+export default BaseChatItem

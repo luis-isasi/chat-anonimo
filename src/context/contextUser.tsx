@@ -1,12 +1,19 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 
 import { USER_SESSION, USERS_LIST } from '@Constants'
-import { User } from '@Types'
-
+import { User, Chat, UserBasic, ChatData } from '@Types'
+import { createChatLS, createChatDataLS, createChatReceiverLS } from '@Utils'
 interface ContextUser {
   user: User
   setUserName: ({ name, id }: { name: string; id: number }) => void
   isLoading: boolean
+  addNewChat: ({
+    sender,
+    receiver,
+  }: {
+    sender: UserBasic
+    receiver: UserBasic
+  }) => { chat: Chat; chatData: ChatData }
 }
 
 //we create context theme
@@ -16,6 +23,8 @@ const ContextUser = createContext<ContextUser | undefined>(undefined)
 export const ContextUserProvider = ({ children }) => {
   const [user, setUser] = useState<undefined | User>(undefined)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+
+  console.log({ user })
 
   useEffect(() => {
     if (user) {
@@ -31,8 +40,9 @@ export const ContextUserProvider = ({ children }) => {
       setUser(user)
     } else {
       const newUser: User = {
-        name: 'anonimo',
         id: usersList ? usersList.length : 0,
+        name: 'anonimo',
+        chats: [],
       }
       sessionStorage.setItem(USER_SESSION, JSON.stringify(newUser))
 
@@ -51,6 +61,7 @@ export const ContextUserProvider = ({ children }) => {
 
   const setUserName = ({ name, id }: { name: string; id: number }) => {
     const newUser: User = {
+      ...user,
       name,
       id,
     }
@@ -67,8 +78,42 @@ export const ContextUserProvider = ({ children }) => {
     setUser(newUser)
   }
 
+  const addNewChat = ({
+    sender,
+    receiver,
+  }: {
+    sender: UserBasic
+    receiver: UserBasic
+  }): { chat: Chat; chatData: ChatData } => {
+    //Steps:
+    //create chatbase
+    const chatData = createChatDataLS({ sender, receiver })
+
+    const newChat = {
+      id: chatData.id,
+      contact: {
+        id: receiver.id,
+        name: receiver.name,
+      },
+    }
+
+    //update state current user
+    setUser({ ...user, chats: [...user.chats, newChat] })
+
+    //creatte chat
+    createChatLS({ currentUser: user, newChat })
+
+    //create chat receiver
+    createChatReceiverLS({
+      idReceiver: receiver.id,
+      currentUser: sender,
+    })
+
+    return { chat: newChat, chatData }
+  }
+
   return (
-    <ContextUser.Provider value={{ user, setUserName, isLoading }}>
+    <ContextUser.Provider value={{ user, setUserName, isLoading, addNewChat }}>
       {children}
     </ContextUser.Provider>
   )
