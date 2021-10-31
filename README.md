@@ -1,34 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Chat Anonimo
 
-## Getting Started
+Es una aplicación algo parecida a un clone de whatsapp, pero no lo es, este chat anónimo, nos permite chatear con nuestros amigos de manera local, es decir cada pestaña es un usuario nuevo, te puedes cambiar de nombre y enviar mensajes a las personas que estén es ese momento conectado, **si cierras la pestaña y abres otra será otro usuario, es decir pierdes automáticamente el usuario anterior**
 
-First, run the development server:
+### Stack tecnologico:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- next: 12.0.1
+- react: 17.0.2
+- typescript: 4.4.4
+- @mui/icons-material: 5.0.5
+- styled-components: 5.3.3
+- tailwindcss: 2.2.17
+- @commitlint/config-conventional: 13.2.0
+- autoprefixer: 10.4.0
+- eslint: 7.32.
+- husky: 7.0.4
+- lint-staged: 11.2.6
+- postcss: 8.3.11
+- prettier: 2.4.1
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Features 
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.tsx`.
+- Enviar mensaje: 
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+![](https://github.com/luis-isasi/project_files/blob/master/chat-anonimo/send-message.png)
 
-## Learn More
+- Cambiar nombre de usuario 
 
-To learn more about Next.js, take a look at the following resources:
+![](https://github.com/luis-isasi/project_files/blob/master/chat-anonimo/change-user-name.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Filtrar usuarios y chats por texto 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![](https://github.com/luis-isasi/project_files/blob/master/chat-anonimo/filter-by-text.png)
 
-## Deploy on Vercel
+- Actualizar chats
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![](https://github.com/luis-isasi/project_files/blob/master/chat-anonimo/update-chat.png)
